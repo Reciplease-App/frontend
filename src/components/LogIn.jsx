@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import * as Yup from 'yup';
+
+import loginSchema from '../formSchema/loginSchema';
 
 
 function LogIn() {
@@ -18,7 +21,7 @@ function LogIn() {
     const [loginValues, setLoginValues] = useState(formValues)
     const [loginErrors, setLoginErrors] = useState(formErrors)
 
-    // handles changes made to the input fields
+    // handler functions below
     const handleChange = (e) => {
         setLoginValues({...loginValues, [e.target.name]: e.target.value})
     }
