@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 
 function LogIn() {
@@ -22,7 +23,7 @@ function LogIn() {
     }
     
     return (
-        <div>
+        <StyledContainer>
             <h1>Login</h1>
             <p>Welcome back! Lettuce show you some more recipes to fall in love with!</p>
 
@@ -44,8 +45,15 @@ function LogIn() {
                 <button>Let's get cook'n</button>
                 <p>Sign Up or Learn More</p>
             </form>
-        </div>
+        </StyledContainer>
     )
 }
 
 export default LogIn
+
+// styled components
+const StyledContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
