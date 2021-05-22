@@ -11,4 +11,4 @@ const loginSchema = Yup.object().shape({
         .min(6, 'Your Password Needs to At Least Be 6 Characters Long')
 })
 
-export default loginSchema
+export default loginSchema;
