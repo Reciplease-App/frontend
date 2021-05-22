@@ -1,8 +1,15 @@
+import { Route, Switch } from 'react-router-dom'
+
+import Login from './components/LogIn'
+import Landing from './components/Landing'
+
 function App() {
   return (
     <div className="App">
-      <h1>Let's build Reciplease!</h1>
-      <h2>Hello world</h2>
+      <Switch>
+        <Route path='/login' component={Login} />
+        <Route exact path='/' component={Landing} />
+      </Switch>
     </div>
   );
 }
