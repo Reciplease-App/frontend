@@ -59,11 +59,10 @@ function LogIn() {
     }
     
     return (
-        <StyledContainer>
-            <h1>Login</h1>
-            <p>Welcome back! Lettuce show you some more recipes to fall in love with!</p>
-
-            <div>
+        <StyledSection>
+            <StyledContainer>
+                <h1>Login</h1>
+                <p>Welcome back! Lettuce show you some more recipes to fall in love with!</p>
                 <p>{loginErrors.email}</p>
                 <p>{loginErrors.password}</p>
                 <form onSubmit={handleSubmit}>
@@ -84,16 +83,34 @@ function LogIn() {
                     <button disabled={disabled}>Let's get cook'n</button>
                     <p>Sign Up or Learn More</p>
                 </form>
-            </div>
-        </StyledContainer>
+            </StyledContainer>
+            
+        </StyledSection>
     )
 }
 
 export default LogIn
 
 // styled components
-const StyledContainer = styled.section`
+const StyledSection = styled.section`
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background: url(images/login-background.jpg);
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+`
+
+const StyledContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
 `
