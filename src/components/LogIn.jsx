@@ -94,9 +94,6 @@ export default LogIn
 // styled components
 const StyledSection = styled.section`
     height: 100vh;
-    background-position: center;
-    background-repeat: no-repeat;
-    background: url(images/login-background.jpg);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -108,6 +105,7 @@ const StyledContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: 3px solid black;
 
     form {
         display: flex;
