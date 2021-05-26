@@ -25,7 +25,7 @@ function SignUp() {
     }
 
     //STATE
-    const [users, setUser] = useState([])
+    // const [users, setUser] = useState([]) will this become a 'cook book' variable?
     const [formValues, setFormValues] = useState(initialFormValues)
     const [disabled, setDisabled] = useState(initialDisabled)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
@@ -85,9 +85,9 @@ function SignUp() {
 
     const postNewUser = (newUser) => {
         console.log(newUser)
-        axios.post('https://expatjournalbw1020.herokuapp.com/signup', newUser)
+        axios.post('', newUser)
             .then((res) => {
-                push("/Signin")
+                push("/register")
             })
             .catch(err => {
                 console.log('POST ERR -->', err)
@@ -99,8 +99,8 @@ function SignUp() {
 
 
     return (
-        <div className='centerForm'>
-            <div id='maxform'>
+        <div className=''>
+            <div id=''>
                 <form onSubmit={onSubmit}>
 
                     <div className="errors">
