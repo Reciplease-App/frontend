@@ -24,12 +24,12 @@ function LogIn() {
 
 
 
-    // useEffect is checking if the form input is valid. If so, then it is enabling the submit button
-    useEffect(() => {
-        loginSchema.isValid(loginValues)
-            .then(valid => setDisabled(!valid))
+    //useEffect is checking if the form input is valid. If so, then it is enabling the submit button
+    // useEffect(() => {
+    //     loginSchema.isValid(loginValues)
+    //         .then(valid => setDisabled(!valid))
 
-    }, [loginValues])
+    // }, [loginValues])
 
 
     // handler function - tracking errors
@@ -46,14 +46,14 @@ function LogIn() {
 
     // handler functions - tracking the user inputs
     const handleChange = (e) => {
-        handleFormErrors(e.target.name, e.target.value)
         setLoginValues({...loginValues, [e.target.name]: e.target.value})
     }
 
 
-
+    // handler function - handles actions that take place when user submits
     const handleSubmit = (e) => {
         e.preventDefault()
+        handleFormErrors(e.target.name, e.target.value)
         console.log('Congrats! You can search for delicious food!')
         setLoginValues(formValues)
     }
@@ -63,8 +63,8 @@ function LogIn() {
             <StyledContainer>
                 <h1>Login</h1>
                 <p>Welcome back! Lettuce show you some more recipes to fall in love with!</p>
-                <p>{loginErrors.email}</p>
-                <p>{loginErrors.password}</p>
+                {formErrors.email && <p>{formErrors.email}</p>}
+                {formErrors.password && <p>{formErrors.password}</p>}
                 <form onSubmit={handleSubmit}>
                     <input 
                         type='text'
@@ -80,7 +80,7 @@ function LogIn() {
                         value={loginValues.password}
                         onChange={handleChange}
                     />
-                    <button disabled={disabled}>Let's get cook'n</button>
+                    <button>Let's get cook'n</button>
                     <p>Sign Up or Learn More</p>
                 </form>
             </StyledContainer>
@@ -105,7 +105,6 @@ const StyledContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 3px solid black;
 
     form {
         display: flex;
