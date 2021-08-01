@@ -88,6 +88,10 @@ const StyledSection = styled.section`
     justify-content: center;
     align-items: center;
     width: 100%;
+    background: url(/images/edgar-castrejon-1CsaVdwfIew-unsplash.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 20% 45%;
 `
 
 const StyledContainer = styled.div`
