@@ -4,23 +4,21 @@ import * as Yup from 'yup';
 
 import loginSchema from '../formSchema/loginSchema';
 
+const formValues = {
+    email: '',
+    password: ''
+}
+
+const formErrors = {
+    email: '',
+    password: ''
+}
 
 function LogIn() {
-    // initial form values
-    const formValues = {
-        email: '',
-        password: ''
-    }
 
-    const formErrors = {
-        email: '',
-        password: ''
-    }
-
-    // tracking form values with useState
     const [loginValues, setLoginValues] = useState(formValues);
     const [loginErrors, setLoginErrors] = useState(formErrors);
-    const [disabled, setDisabled] = useState(true);
+    // const [disabled, setDisabled] = useState(true);
 
 
 
@@ -44,13 +42,11 @@ function LogIn() {
             })
     }
 
-    // handler functions - tracking the user inputs
     const handleChange = (e) => {
         setLoginValues({...loginValues, [e.target.name]: e.target.value})
     }
 
 
-    // handler function - handles actions that take place when user submits
     const handleSubmit = (e) => {
         e.preventDefault()
         handleFormErrors(e.target.name, e.target.value)
