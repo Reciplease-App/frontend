@@ -92,6 +92,10 @@ const StyledSection = styled.section`
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 20% 45%;
+
+    @media(max-width:82em) {
+        
+    }
 `
 
 const StyledContainer = styled.div`
@@ -101,6 +105,10 @@ const StyledContainer = styled.div`
     align-items: center;
     width: 40%;
     background: rgba(235, 244, 255, 0.95);
+
+    @media(max-width: 82em) {
+        width: 50%;
+    }
 
     h1 {
         font-size: 6.4rem;
@@ -114,6 +122,10 @@ const StyledContainer = styled.div`
         width: 454px;
         text-align: center;
         margin-bottom: 5%;
+
+        @media(max-width: 82em) {
+            width: 75%;
+        }
     }
 
     form {
@@ -131,6 +143,10 @@ const StyledContainer = styled.div`
             
             input {
                 font-size: 2.5rem;
+
+                @media (max-width: 82em) {
+                    font-size: 1.8rem;
+                }
             }
         }
 
@@ -141,6 +157,12 @@ const StyledContainer = styled.div`
             margin-top: 2%;
             margin-bottom: 3%;
             box-shadow: 0px 7px 29px rgba(0, 0, 0, 0.25);
+            text-transform: none;
+
+            @media (max-width: 82em) {
+                font-size: 2.5rem;
+                margin-bottom: 5%;
+            }
         }
     }
 
