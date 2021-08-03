@@ -83,19 +83,15 @@ export default LogIn
 // styled components
 const StyledSection = styled.section`
     height: 100vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    background: url(/images/edgar-castrejon-1CsaVdwfIew-unsplash.jpg);
+    background: url(/images/login-mobile-background.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: 20% 45%;
-
-    @media(max-width:82em) {
-        
-    }
+    background-position: center;
 `
 
 const StyledContainer = styled.div`
@@ -103,15 +99,11 @@ const StyledContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 40%;
+    width: 90%;
     background: rgba(235, 244, 255, 0.95);
 
-    @media(max-width: 82em) {
-        width: 50%;
-    }
-
     h1 {
-        font-size: 6.4rem;
+        font-size: 5rem;
         margin-top: 5%;
         margin-bottom: 4%;
         font-weight: bold;
@@ -119,13 +111,10 @@ const StyledContainer = styled.div`
 
     p {
         font-size: 1.8rem;
-        width: 454px;
+        line-height: 1.2;
+        width: 80%;
         text-align: center;
         margin-bottom: 5%;
-
-        @media(max-width: 82em) {
-            width: 75%;
-        }
     }
 
     form {
@@ -136,38 +125,28 @@ const StyledContainer = styled.div`
 
         .MuiFormControl-root {
             margin-bottom: 5%;
-            width: 358px;
+            width: 90%;
             background: #ffffff;
-            width: 60%;
             box-shadow: 0px 7px 29px rgba(0, 0, 0, 0.25);
             
             input {
-                font-size: 2.5rem;
-
-                @media (max-width: 82em) {
-                    font-size: 1.8rem;
-                }
+                font-size: 2rem;
             }
         }
 
         button {
             background: #FCDE7B;
-            font-size: 2.8rem;
-            width: 60%;
+            font-size: 2.2rem;
+            width: 90%;
             margin-top: 2%;
-            margin-bottom: 3%;
+            margin-bottom: 4%;
             box-shadow: 0px 7px 29px rgba(0, 0, 0, 0.25);
             text-transform: none;
-
-            @media (max-width: 82em) {
-                font-size: 2.5rem;
-                margin-bottom: 5%;
-            }
         }
     }
 
     .options, a {
-        font-size: 2rem;
+        font-size: 1.8rem;
         color: #F17012;
     }
 `
