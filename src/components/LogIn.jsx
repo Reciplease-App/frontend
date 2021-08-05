@@ -80,25 +80,17 @@ function LogIn() {
 
 export default LogIn
 
-// styled components
 const StyledSection = styled.section`
     height: 100vh;
-    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: url(/images/login-mobile-background.jpg);
+    width: 100%;
+    background: url(/images/edgar-castrejon-1CsaVdwfIew-unsplash.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
-
-    @media(min-width: 43em) {
-        background: url(/images/login-background.jpg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
+    background-position: 20% 45%;
 `
 
 const StyledContainer = styled.div`
@@ -106,74 +98,52 @@ const StyledContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    width: 40%;
     background: rgba(235, 244, 255, 0.95);
-
-    @media(min-width: 43em) {
-        width: 75%;
-    }
-
     h1 {
-        font-size: 5rem;
+        font-size: 6.4rem;
         margin-top: 5%;
         margin-bottom: 4%;
         font-weight: bold;
-
-        @media(min-width: 43em) {
-            font-size: 6rem;
-        }
     }
-
     p {
         font-size: 1.8rem;
-        line-height: 1.3;
-        width: 70%;
+        width: 454px;
         text-align: center;
         margin-bottom: 5%;
-
-        @media(min-width: 43em) {
-            font-size: 2.2rem;
-        }
     }
-
     form {
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
-
         .MuiFormControl-root {
             margin-bottom: 5%;
-            width: 90%;
+            width: 358px;
             background: #ffffff;
+            width: 60%;
             box-shadow: 0px 7px 29px rgba(0, 0, 0, 0.25);
             
             input {
-                font-size: 2rem;
-
-                @media(min-width: 43em) {
-                    font-size: 2.5rem;
-                }
+                font-size: 2.5rem;
             }
         }
-
         button {
             background: #FCDE7B;
-            font-size: 2.2rem;
-            width: 90%;
+            font-size: 2.8rem;
+            width: 60%;
             margin-top: 2%;
-            margin-bottom: 4%;
+            margin-bottom: 3%;
             box-shadow: 0px 7px 29px rgba(0, 0, 0, 0.25);
             text-transform: none;
 
-            @media(min-width: 43em) {
-                font-size: 2.7rem;
+            :hover {
+                background: #FDF1CA;
             }
         }
     }
-
     .options, a {
-        font-size: 1.8rem;
+        font-size: 2rem;
         color: #F17012;
     }
 `
