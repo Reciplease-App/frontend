@@ -1,40 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
+import { Button, TextField } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 import loginSchema from '../formSchema/loginSchema';
 
+const formValues = {
+    email: '',
+    password: ''
+}
+
+const formErrors = {
+    email: '',
+    password: ''
+}
 
 function LogIn() {
-    // initial form values
-    const formValues = {
-        email: '',
-        password: ''
-    }
 
-    const formErrors = {
-        email: '',
-        password: ''
-    }
-
-    // tracking form values with useState
     const [loginValues, setLoginValues] = useState(formValues);
     const [loginErrors, setLoginErrors] = useState(formErrors);
-    const [disabled, setDisabled] = useState(true);
 
-
-
-    //useEffect is checking if the form input is valid. If so, then it is enabling the submit button
-    // useEffect(() => {
-    //     loginSchema.isValid(loginValues)
-    //         .then(valid => setDisabled(!valid))
-
-    // }, [loginValues])
-
-
-    // handler function - tracking errors
     const handleFormErrors = (name, value) => {
-    
         Yup.reach(loginSchema,name).validate(value)
             .then(valid => {
                 setLoginErrors({...loginErrors, [name]: ''})
@@ -44,13 +31,11 @@ function LogIn() {
             })
     }
 
-    // handler functions - tracking the user inputs
     const handleChange = (e) => {
         setLoginValues({...loginValues, [e.target.name]: e.target.value})
     }
 
 
-    // handler function - handles actions that take place when user submits
     const handleSubmit = (e) => {
         e.preventDefault()
         handleFormErrors(e.target.name, e.target.value)
@@ -66,22 +51,26 @@ function LogIn() {
                 {formErrors.email && <p>{formErrors.email}</p>}
                 {formErrors.password && <p>{formErrors.password}</p>}
                 <form onSubmit={handleSubmit}>
-                    <input 
+                    <TextField
+                        variant="outlined"
                         type='text'
                         name='email'
                         placeholder='Email'
                         value={loginValues.email}
                         onChange={handleChange}
                     />
-                    <input 
+                    <TextField
+                        variant="outlined"
                         type='password'
                         name='password'
                         placeholder='Password'
                         value={loginValues.password}
                         onChange={handleChange}
                     />
-                    <button>Let's get cook'n</button>
-                    <p>Sign Up or Learn More</p>
+                    <Button variant="contained">Let's get cook'n</Button>
+                    <p className='options'>
+                        <Link to='/signup'>Sign Up</Link> or <Link to='/'>Learn More</Link>
+                    </p>
                 </form>
             </StyledContainer>
             
@@ -91,13 +80,17 @@ function LogIn() {
 
 export default LogIn
 
-// styled components
 const StyledSection = styled.section`
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    background: url(/images/edgar-castrejon-1CsaVdwfIew-unsplash.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 20% 45%;
 `
 
 const StyledContainer = styled.div`
@@ -105,9 +98,52 @@ const StyledContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    width: 40%;
+    background: rgba(235, 244, 255, 0.95);
+    h1 {
+        font-size: 6.4rem;
+        margin-top: 5%;
+        margin-bottom: 4%;
+        font-weight: bold;
+    }
+    p {
+        font-size: 1.8rem;
+        width: 454px;
+        text-align: center;
+        margin-bottom: 5%;
+    }
     form {
         display: flex;
         flex-direction: column;
+        align-items: center;
+        width: 100%;
+        .MuiFormControl-root {
+            margin-bottom: 5%;
+            width: 358px;
+            background: #ffffff;
+            width: 60%;
+            box-shadow: 0px 7px 29px rgba(0, 0, 0, 0.25);
+            
+            input {
+                font-size: 2.5rem;
+            }
+        }
+        button {
+            background: #FCDE7B;
+            font-size: 2.8rem;
+            width: 60%;
+            margin-top: 2%;
+            margin-bottom: 3%;
+            box-shadow: 0px 7px 29px rgba(0, 0, 0, 0.25);
+            text-transform: none;
+
+            :hover {
+                background: #FDF1CA;
+            }
+        }
+    }
+    .options, a {
+        font-size: 2rem;
+        color: #F17012;
     }
 `
