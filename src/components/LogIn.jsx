@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { Button, TextField } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import loginSchema from '../formSchema/loginSchema';
+import axios from 'axios';
 
 const formValues = {
     email: '',
@@ -17,9 +18,19 @@ const formErrors = {
 }
 
 function LogIn() {
-
     const [loginValues, setLoginValues] = useState(formValues);
     const [loginErrors, setLoginErrors] = useState(formErrors);
+
+    const history = useHistory();
+
+    const onSubmit = () => {
+        axios.post('https://reciplease-application.herokuapp.com/users/login', loginValues)
+            .then(res => {
+                console.log('congratulations you fuck, welcum to our website af', res)
+                history.push('/search')
+            })
+            .catch(err => {console.log(err)})
+    }
 
     const handleFormErrors = (name, value) => {
         Yup.reach(loginSchema,name).validate(value)
@@ -47,10 +58,10 @@ function LogIn() {
         <StyledSection>
             <StyledContainer>
                 <h1>Login</h1>
-                <p>Welcome back! Lettuce show you some more recipes to fall in love with!</p>
+                <p>Welcome back! Lettuce show you some more<br/> recipes to fall in love with!</p>
                 {formErrors.email && <p>{formErrors.email}</p>}
                 {formErrors.password && <p>{formErrors.password}</p>}
-                <form onSubmit={handleSubmit}>
+                <form>
                     <TextField
                         variant="outlined"
                         type='text'
@@ -67,7 +78,7 @@ function LogIn() {
                         value={loginValues.password}
                         onChange={handleChange}
                     />
-                    <Button variant="contained">Let's get cook'n</Button>
+                    <Button onClick={onSubmit} variant="contained">Let's get cook'n</Button>
                     <p className='options'>
                         <Link to='/signup'>Sign Up</Link> or <Link to='/'>Learn More</Link>
                     </p>

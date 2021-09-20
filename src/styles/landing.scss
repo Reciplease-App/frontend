@@ -4,161 +4,44 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: white;
+    background: url('../assets/brooke-lark-wMzx2nBdeng-unsplash\ 1.svg');
 }
 .content {
     height: 100vh;
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 0 2rem;
-    background: white;
+    background: url('../assets/brooke-lark-wMzx2nBdeng-unsplash\ 1.svg');
+    background-size: cover;
 }
 .landing-title {
-    font-size: 32px;
-    padding: 4rem 0;
-    color: white;
-    background: #150fa2;
-    width: 100%;
+    font-family: 'Rock Salt';
+    font-size: 72px;
+}
+.landing-description {
+    font-family: Roboto;
+    font-size: 28px;
+    width: 30%;
     text-align: center;
-    position: fixed;
-    top: 0;
+    margin: 4rem;
+    font-weight: 400;
 }
-.buttons {
-    width: 40rem;
-    min-height: 20rem;
-    box-shadow: 0 1px 2px 0 rgb(0, 0, 0, .3);
-    border-radius: 8px;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: .25s ease-in-out;
-}
-#login-button {
-    padding: 1rem 4rem;
-    background: #0081e4;
-    color: white;
+#submit-btn {
+    background: #fcde7b;
+    padding: 1rem 6rem;
+    font-size: 28px;
+    color: black;
     border: none;
+    font-weight: 238;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .15);
     transition: .25s ease-in-out;
-    border: 1px solid white;
-    border-radius: 8px;
 
     &:hover {
-        background: white;
-        color: #0081e4;
-        border: 1px solid #150fa2;
-    }
-}
-#signup-button {
-    padding: 1rem 4rem;
-    background: #2aa1fc;
-    color: white;
-    border: none;
-    transition: .25s ease-in-out;
-    border: 1px solid white;
-    border-radius: 8px;
-
-    &:hover {
-        background: white;
-        color: #0081e4;
-        border: 1px solid #150fa2;
-    }
-}
-.buttons-card-header {
-    width: 100%;
-    padding: 2rem;
-    text-align: center;
-    font-size: 16px;
-    background: #150fa2;
-    border-radius: 8px 8px 0 0;
-    color: white;
-}
-.buttons-card-buttons {
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    margin-top: 5rem;
-}
-.vine {
-    width: 100%;
-    transform: rotate(90deg);
-    height: 20%;
-}
-.login-form {
-    width: 80%;
-    height: 15rem;
-    margin-top: 2rem;
-    margin-bottom: 4rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    transition: 1s ease-in-out;
-}
-.signup-form {
-    width: 80%;
-    height: 18rem;
-    margin-top: 2rem;
-    margin-bottom: 4rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    transition: 1s ease-in-out;
-}
-.closed-signup {
-    display: none;
-    transition: 1s ease-in-out;
-}
-.closed-login {
-    display: none;
-    transition: 1s ease-in-out;
-}
-#submit-button {
-    padding: 1rem 4rem;
-    background: gold;
-    color: #0081e4;
-    border: none;
-    transition: .25s ease-in-out;
-    border: 1px solid white;
-    border-radius: 8px;
-    margin-top: 1rem;
-
-    &:hover {
-        background: #150fa2;
-        color: gold;
-        border: 1px solid #150fa2;
-    }
-}
-#login-button-active {
-    padding: 1rem 4rem;
-    background: white;
-    color: #0081e4;
-    border: none;
-    transition: .25s ease-in-out;
-    border: 1px solid #150fa2;
-    border-radius: 8px;
-
-    &:hover {
-        background: white;
-        color: #0081e4;
-        border: 1px solid #150fa2;
-    }
-}
-#signup-button-active {
-    padding: 1rem 4rem;
-    background: white;
-    color: #0081e4;
-    border: none;
-    transition: .25s ease-in-out;
-    border: 1px solid #150fa2;
-    border-radius: 8px;
-
-    &:hover {
-        background: white;
-        color: #0081e4;
-        border: 1px solid #150fa2;
+        background: coral;
+        color: white;
+        box-shadow: 0 10px 20px 0 rgba(0, 0, 0, .3);
     }
 }
