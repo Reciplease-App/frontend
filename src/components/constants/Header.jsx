@@ -3,19 +3,35 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ButtonUnstyled from '@mui/core/ButtonUnstyled';
 import MenuIcon from '@mui/icons-material/Menu';
 import '../../styles/header.scss'
+import { useHistory, useLocation } from 'react-router';
+import { connect } from 'react-redux';
+import { hamburgerMenu } from '../../store/actions/actions';
+import { Drawer } from '@material-ui/core';
 
-const Header = () => {
+const Header = (props) => {
+    const history = useHistory();
+
+
+
     return (
         <div className="header">
+            <Drawer open={props.menuOpen} onClose={() => {props.hamburgerMenu()}} anchor="right">
+                <div className="drawer">
+                    hello world
+                </div>
+            </Drawer>
             <div className="header-content">
                 <AccountCircleIcon fontSize="large"/>
-                <ButtonUnstyled id="liked-recipes-button">
-                    Saved Recipes
-                </ButtonUnstyled>
-                <MenuIcon fontSize="large" />
+                <div onClick={() => {console.log(props); props.hamburgerMenu();}}>
+                    <MenuIcon fontSize="large" />
+                </div>
             </div>
         </div>
     )
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+    return state;
+}
+
+export default connect(mapStateToProps, {hamburgerMenu})(Header);
