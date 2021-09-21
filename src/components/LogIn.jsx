@@ -143,7 +143,7 @@ const StyledContainer = styled.div`
             text-transform: none;
 
             :hover {
-                background: #FDF1CA;
+                background: coral;
             }
         }
     }

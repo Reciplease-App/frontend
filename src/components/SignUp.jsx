@@ -2,8 +2,10 @@ import React, {useState, useEffect} from 'react';
 import * as yup from 'yup';
 import schema from '../formSchema/signSchema';
 import axios from 'axios';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
 import "../styles/signup.scss";
+import { Input, TextField } from '@material-ui/core';
+import { Button } from '@mui/material';
 
 // initial values
 const initialFormValues = {
@@ -93,49 +95,54 @@ function SignUp() {
 
 
     return (
-        <div className='wrapper'>
+        
             <div className="signup-container">
-                <form onSubmit={onSubmit}>
-
-                    <div className="errors">
-                        <div>{formErrors.username}</div>
-                        <div>{formErrors.email}</div>
-                        <div>{formErrors.password}</div>
-                    </div>
-
-                    <h3>Sign Up</h3>
-                    <div className="input-wrapper">
-                    <input
-                            name='username'
-                            type='text'
-                            value={formValues.username}
-                            onChange={onChange}
-                            placeholder='Name here'
-                        />
-
-                        <input
-                            name='email'
-                            type='email'
-                            value={formValues.email}
-                            onChange={onChange}
-                            placeholder='Email address here'
-                        />
-                    
-                        <input
-                            name='password'
-                            type='password'
-                            value={formValues.password}
-                            onChange={onChange}
-                            placeholder='Password here'
-                        />
-                    
-                    <button disabled={disabled}>Submit</button>
-                    </div>
+                    <form onSubmit={onSubmit}>
                         
+                            {/* <p>{formErrors.username}</p>
+                            <p>{formErrors.email}</p>
+                            <p>{formErrors.password}</p>
+                         */}
 
-                </form>
+                        <h3>Sign Up</h3>
+                        <p>Don’t worry, we aren’t doing anything with your info! 
+Just need you to create an account to save the recipes you love.</p>
+                        
+                        <Input
+                                variant="outlined"
+                                name='username'
+                                type='text'
+                                value={formValues.username}
+                                onChange={onChange}
+                                placeholder='Username'
+                                disableUnderline
+                            />
+
+                            <Input
+                                name='email'
+                                type='email'
+                                value={formValues.email}
+                                onChange={onChange}
+                                placeholder='Email'
+                                disableUnderline
+                            />
+                        
+                            <Input
+                                name='password'
+                                type='password'
+                                value={formValues.password}
+                                onChange={onChange}
+                                placeholder='Password'
+                                disableUnderline
+                            />
+                        
+                        <Button variant="contained" type="submit">Submit</Button>
+
+                        <p>
+                            <Link to='/signup'>Sign Up</Link> or <Link to='/'>Learn More</Link>
+                        </p>
+                    </form>
             </div>
-        </div>
     )
 }
 
