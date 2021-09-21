@@ -45,14 +45,6 @@ function LogIn() {
     const handleChange = (e) => {
         setLoginValues({...loginValues, [e.target.name]: e.target.value})
     }
-
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        handleFormErrors(e.target.name, e.target.value)
-        console.log('Congrats! You can search for delicious food!')
-        setLoginValues(formValues)
-    }
     
     return (
         <StyledSection>
@@ -61,7 +53,7 @@ function LogIn() {
                 <p>Welcome back! Lettuce show you some more<br/> recipes to fall in love with!</p>
                 {formErrors.email && <p>{formErrors.email}</p>}
                 {formErrors.password && <p>{formErrors.password}</p>}
-                <form>
+                <form onSubmit={onSubmit}>
                     <TextField
                         variant="outlined"
                         type='text'
@@ -78,7 +70,7 @@ function LogIn() {
                         value={loginValues.password}
                         onChange={handleChange}
                     />
-                    <Button onClick={onSubmit} variant="contained">Let's get cook'n</Button>
+                    <Button variant="contained">Let's get cook'n</Button>
                     <p className='options'>
                         <Link to='/signup'>Sign Up</Link> or <Link to='/'>Learn More</Link>
                     </p>

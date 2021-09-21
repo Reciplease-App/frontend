@@ -2,46 +2,40 @@ import React, {useState, useEffect} from 'react';
 import * as yup from 'yup';
 import schema from '../formSchema/signSchema';
 import axios from 'axios';
-
 import {useHistory} from 'react-router-dom';
+import "../styles/signup.scss";
+
+// initial values
+const initialFormValues = {
+    username: '',
+    email: '',
+    password: '',
+}
+
+const initialDisabled = true;
+
+const initialFormErrors = {
+    username: '',
+    email: '',
+    password: '',
+}
 
 function SignUp() {
-
-    const {push} = useHistory();
-
-    //INITIAL VALUES
-    const initialFormValues = {
-        username: '',
-        email: '',
-        password: '',
-    }
-
-    const initialDisabled = true;
-
-    const initialFormErrors = {
-        username: '',
-        email: '',
-        password: '',
-    }
-
-    //STATE
-    // const [users, setUser] = useState([]) will this become a 'cook book' variable?
     const [formValues, setFormValues] = useState(initialFormValues)
     const [disabled, setDisabled] = useState(initialDisabled)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
-
-    //SIDE EFFECTS
+    
+    const {push} = useHistory();
+    
     useEffect(() => {
         schema.isValid(formValues)
-          .then((valid) => {
-              setDisabled(!valid)
-          })
-      }, [formValues])
+            .then((valid) => {
+                setDisabled(!valid)
+            })
+    }, [formValues])
 
-    //HELPER FUNCTIONS
     const onChange = (evt) => {
         const { name, value, } = evt.target;
-
         inputChange(name, value);
     }
 
@@ -99,53 +93,45 @@ function SignUp() {
 
 
     return (
-        <div className=''>
-            <div id=''>
+        <div className='wrapper'>
+            <div className="signup-container">
                 <form onSubmit={onSubmit}>
 
                     <div className="errors">
                         <div>{formErrors.username}</div>
                         <div>{formErrors.email}</div>
                         <div>{formErrors.password}</div>
-
                     </div>
 
-                    <div>
-                        <h3>Sign Up</h3>
-                        <label> Username:
-                            <input
-                                name='username'
-                                type='text'
-                                value={formValues.username}
-                                onChange={onChange}
-                                placeholder='Name here'
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <label> Email:
-                            <input
-                                name='email'
-                                type='email'
-                                value={formValues.email}
-                                onChange={onChange}
-                                placeholder='Email address here'
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <label> Password:
-                            <input
-                                name='password'
-                                type='password'
-                                value={formValues.password}
-                                onChange={onChange}
-                                placeholder='Password here'
-                            />
-                        </label>
-                    </div>
+                    <h3>Sign Up</h3>
+                    <div className="input-wrapper">
+                    <input
+                            name='username'
+                            type='text'
+                            value={formValues.username}
+                            onChange={onChange}
+                            placeholder='Name here'
+                        />
 
+                        <input
+                            name='email'
+                            type='email'
+                            value={formValues.email}
+                            onChange={onChange}
+                            placeholder='Email address here'
+                        />
+                    
+                        <input
+                            name='password'
+                            type='password'
+                            value={formValues.password}
+                            onChange={onChange}
+                            placeholder='Password here'
+                        />
+                    
                     <button disabled={disabled}>Submit</button>
+                    </div>
+                        
 
                 </form>
             </div>
