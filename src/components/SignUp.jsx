@@ -95,55 +95,47 @@ function SignUp() {
 
 
     return (
-        
-            <div className="signup-container">
-                    <form onSubmit={onSubmit}>
+        <div className="signup-container">
+                <form onSubmit={onSubmit}>
+                    <h3>Sign Up</h3>
+                    <p>Don’t worry, we aren’t doing anything with your info! Just need you to create an account to save the recipes you love.</p>
                         
-                            {/* <p>{formErrors.username}</p>
-                            <p>{formErrors.email}</p>
-                            <p>{formErrors.password}</p>
-                         */}
+                    <Input
+                            variant="outlined"
+                            name='username'
+                            type='text'
+                            value={formValues.username}
+                            onChange={onChange}
+                            placeholder='Username'
+                            disableUnderline
+                        />
 
-                        <h3>Sign Up</h3>
-                        <p>Don’t worry, we aren’t doing anything with your info! 
-Just need you to create an account to save the recipes you love.</p>
+                    <Input
+                        name='email'
+                        type='email'
+                        value={formValues.email}
+                        onChange={onChange}
+                        placeholder='Email'
+                        disableUnderline
+                    />
                         
-                        <Input
-                                variant="outlined"
-                                name='username'
-                                type='text'
-                                value={formValues.username}
-                                onChange={onChange}
-                                placeholder='Username'
-                                disableUnderline
-                            />
+                    <Input
+                        name='password'
+                        type='password'
+                        value={formValues.password}
+                        onChange={onChange}
+                        placeholder='Password'
+                        disableUnderline
+                    />
+                        
+                    <Button variant="contained" type="submit">Submit</Button>
 
-                            <Input
-                                name='email'
-                                type='email'
-                                value={formValues.email}
-                                onChange={onChange}
-                                placeholder='Email'
-                                disableUnderline
-                            />
-                        
-                            <Input
-                                name='password'
-                                type='password'
-                                value={formValues.password}
-                                onChange={onChange}
-                                placeholder='Password'
-                                disableUnderline
-                            />
-                        
-                        <Button variant="contained" type="submit">Submit</Button>
-
-                        <p>
-                            <Link to='/signup'>Sign Up</Link> or <Link to='/'>Learn More</Link>
-                        </p>
-                    </form>
+                    <p>
+                        <Link to='/signup'>Sign Up</Link> or <Link to='/'>Learn More</Link>
+                    </p>
+                </form>
             </div>
     )
 }
 
-export default SignUp
+export default SignUp;

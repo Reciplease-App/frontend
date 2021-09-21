@@ -5,6 +5,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: url("../assets/monika-grabkowska-TAj4X5-eRqE-unsplash 1.svg");
+    background-size: cover;
+
+
 
     form {
         display: flex;
@@ -12,7 +16,7 @@
         align-items: center;
         font-size: 3rem;
         background: rgba(235, 244, 255, 0.95);
-        width: 35%;
+        width: 40%;
 
         h3 {
             text-align: center;
