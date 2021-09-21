@@ -12,8 +12,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ToggleIcon from "material-ui-toggle-icon";
 import IconButton from "@material-ui/core/IconButton";
 import Header from './constants/Header';
+import Drawer from '@mui/material/Drawer';
 
-function SearchPage({isWorking, checkIfReduxWorks}) {
+function SearchPage({isWorking, checkIfReduxWorks}, props) {
     // const [login, setLogin] = useState(false);
     // const [signup, setSignup] = useState(false);
     const [results, setResults] = useState([]);
@@ -97,7 +98,7 @@ function SearchPage({isWorking, checkIfReduxWorks}) {
 
 const mapStateToProps = (state) => {
     return {
-        isWorking: state.isWorking
+        state
     }
 }
 

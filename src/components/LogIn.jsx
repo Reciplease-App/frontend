@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
-import { Button, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
+import ButtonUnstyled from '@mui/core/ButtonUnstyled';
 
 import loginSchema from '../formSchema/loginSchema';
 import axios from 'axios';
@@ -23,7 +24,8 @@ function LogIn() {
 
     const history = useHistory();
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault()
         axios.post('https://reciplease-application.herokuapp.com/users/login', loginValues)
             .then(res => {
                 console.log('congratulations you fuck, welcum to our website af', res)
@@ -70,7 +72,7 @@ function LogIn() {
                         value={loginValues.password}
                         onChange={handleChange}
                     />
-                    <Button variant="contained">Let's get cook'n</Button>
+                    <ButtonUnstyled type="submit" variant="contained">Let's get cook'n</ButtonUnstyled>
                     <p className='options'>
                         <Link to='/signup'>Sign Up</Link> or <Link to='/'>Learn More</Link>
                     </p>

@@ -8,12 +8,11 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding-right: 3rem;
 }
 .header-content {
-    width: 15%;
+    width: 12%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 #liked-recipes-button {
     border-radius: 50px;

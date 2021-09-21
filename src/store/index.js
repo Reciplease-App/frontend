@@ -1,3 +1,3 @@
 export { rootReducer } from './reducer/rootReducer';
 
-export {checkIfReduxWorks} from './actions/actions'
+export {checkIfReduxWorks} from './actions/actions';
