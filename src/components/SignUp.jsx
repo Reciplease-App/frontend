@@ -4,7 +4,7 @@ import schema from '../formSchema/signSchema';
 import axios from 'axios';
 import {useHistory, Link} from 'react-router-dom';
 import "../styles/signup.scss";
-import { Input, TextField } from '@material-ui/core';
+import { Input } from '@material-ui/core';
 import { Button } from '@mui/material';
 
 // initial values
@@ -29,12 +29,12 @@ function SignUp() {
     
     const {push} = useHistory();
     
-    useEffect(() => {
-        schema.isValid(formValues)
-            .then((valid) => {
-                setDisabled(!valid)
-            })
-    }, [formValues])
+    // useEffect(() => {
+    //     schema.isValid(formValues)
+    //         .then((valid) => {
+    //             setDisabled(!valid)
+    //         })
+    // }, [formValues])
 
     const onChange = (evt) => {
         const { name, value, } = evt.target;
@@ -63,27 +63,24 @@ function SignUp() {
         })
     }
 
-    const onSubmit = (evt) => {
-        evt.preventDefault()
-        formSubmit()
-    }
+    const handleSubmit = (e) => {
+        // const newUser = {
 
-    const formSubmit = () => {
-        const newUser = {
+        //     username: formValues.username.trim(),
+        //     email: formValues.email.trim(),
+        //     password: formValues.password.trim(),
 
-            username: formValues.username.trim(),
-            email: formValues.email.trim(),
-            password: formValues.password.trim(),
-
-        }
-        postNewUser(newUser)
+        // }
+        e.preventDefault()
+        postNewUser(formValues)
     }
 
     const postNewUser = (newUser) => {
         console.log(newUser)
         axios.post('https://reciplease-application.herokuapp.com/users/register', newUser)
             .then((res) => {
-                push("/register")
+                console.log(res)
+                push("/cookbook")
             })
             .catch(err => {
                 console.log('POST ERR -->', err)
@@ -96,7 +93,7 @@ function SignUp() {
 
     return (
         <div className="signup-container">
-                <form onSubmit={onSubmit}>
+                <form onSubmit={handleSubmit}>
                     <h3>Sign Up</h3>
                     <p>Don’t worry, we aren’t doing anything with your info! Just need you to create an account to save the recipes you love.</p>
                         
