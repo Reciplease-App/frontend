@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import * as yup from 'yup';
 import schema from '../formSchema/signSchema';
 import axios from 'axios';
@@ -7,14 +7,11 @@ import "../styles/signup.scss";
 import { Input } from '@material-ui/core';
 import { Button } from '@mui/material';
 
-// initial values
 const initialFormValues = {
     username: '',
     email: '',
     password: '',
 }
-
-const initialDisabled = true;
 
 const initialFormErrors = {
     username: '',
@@ -24,17 +21,10 @@ const initialFormErrors = {
 
 function SignUp() {
     const [formValues, setFormValues] = useState(initialFormValues)
-    const [disabled, setDisabled] = useState(initialDisabled)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
+    const [message, setMessage] = useState("")
     
     const {push} = useHistory();
-    
-    // useEffect(() => {
-    //     schema.isValid(formValues)
-    //         .then((valid) => {
-    //             setDisabled(!valid)
-    //         })
-    // }, [formValues])
 
     const onChange = (evt) => {
         const { name, value, } = evt.target;
@@ -64,31 +54,25 @@ function SignUp() {
     }
 
     const handleSubmit = (e) => {
-        // const newUser = {
-
-        //     username: formValues.username.trim(),
-        //     email: formValues.email.trim(),
-        //     password: formValues.password.trim(),
-
-        // }
-        e.preventDefault()
-        postNewUser(formValues)
-    }
-
-    const postNewUser = (newUser) => {
-        console.log(newUser)
-        axios.post('https://reciplease-application.herokuapp.com/users/register', newUser)
+        e.preventDefault();
+        setMessage("Loading...")
+        
+        axios.post('https://reciplease-application.herokuapp.com/users/register', formValues)
             .then((res) => {
-                console.log(res)
-                push("/cookbook")
+                setMessage("Sign Up Successful!")
+                localStorage.setItem("token", res.data.token)
+                setTimeout(() => {
+                    push("/cookbook")
+                }, 2000)
             })
             .catch(err => {
-                console.log('POST ERR -->', err)
+                setMessage(err.message)
             })
             .finally(() => {
                 setFormValues(initialFormValues)
             })
     }
+
 
 
     return (
@@ -128,8 +112,9 @@ function SignUp() {
                     <Button variant="contained" type="submit">Submit</Button>
 
                     <p>
-                        <Link to='/signup'>Sign Up</Link> or <Link to='/'>Learn More</Link>
+                        Already have an account? <Link to="/login">Login here</Link>
                     </p>
+                    { message ? <p>{message}</p> : null}
                 </form>
             </div>
     )
