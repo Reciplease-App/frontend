@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import schema from '../formSchema/signSchema';
 import axios from 'axios';
@@ -7,24 +7,19 @@ import "../styles/signup.scss";
 import { Input } from '@material-ui/core';
 import { Button } from '@mui/material';
 
-const initialFormValues = {
-    username: '',
-    email: '',
-    password: '',
-}
-
-const initialFormErrors = {
+const initialValues = {
     username: '',
     email: '',
     password: '',
 }
 
 function SignUp() {
-    const [formValues, setFormValues] = useState(initialFormValues)
-    const [formErrors, setFormErrors] = useState(initialFormErrors)
+    const [formValues, setFormValues] = useState(initialValues)
+    const [formErrors, setFormErrors] = useState(initialValues)
+    const [disabledBtn, setDisabledBtn] = useState(true)
     const [message, setMessage] = useState("")
     
-    const {push} = useHistory();
+    const { push } = useHistory();
 
     const onChange = (evt) => {
         const { name, value, } = evt.target;
@@ -47,11 +42,19 @@ function SignUp() {
                     [name]: err.errors[0],
                 })
             })
+
         setFormValues({
             ...formValues,
             [name]: value,
         })
     }
+
+    useEffect(() => {
+        schema.isValid(formValues)
+            .then(valid => {
+                setDisabledBtn(!valid)
+            })
+    }, [formValues])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -69,11 +72,9 @@ function SignUp() {
                 setMessage(err.message)
             })
             .finally(() => {
-                setFormValues(initialFormValues)
+                setFormValues(initialValues)
             })
     }
-
-
 
     return (
         <div className="signup-container">
@@ -81,6 +82,8 @@ function SignUp() {
                     <h3>Sign Up</h3>
                     <p>Don’t worry, we aren’t doing anything with your info! Just need you to create an account to save the recipes you love.</p>
                         
+                    { formErrors.username && 
+                        <p className="errors">{formErrors.username}</p> }
                     <Input
                             variant="outlined"
                             name='username'
@@ -91,6 +94,8 @@ function SignUp() {
                             disableUnderline
                         />
 
+                    { formErrors.email && 
+                        <p className="errors">{formErrors.email}</p> }
                     <Input
                         name='email'
                         type='email'
@@ -99,7 +104,9 @@ function SignUp() {
                         placeholder='Email'
                         disableUnderline
                     />
-                        
+
+                    { formErrors.password && 
+                        <p className="errors">{formErrors.password}</p> }
                     <Input
                         name='password'
                         type='password'
@@ -109,7 +116,7 @@ function SignUp() {
                         disableUnderline
                     />
                         
-                    <Button variant="contained" type="submit">Submit</Button>
+                    <Button variant="contained" type="submit" disabled={disabledBtn}>Submit</Button>
 
                     <p>
                         Already have an account? <Link to="/login">Login here</Link>
