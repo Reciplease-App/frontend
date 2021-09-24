@@ -77,7 +77,7 @@ function LogIn() {
                         value={loginValues.password}
                         onChange={handleChange}
                     />
-                    <Button>Let's get cook'n</Button>
+                    <Button type='submit'>Let's get cook'n</Button>
                     <p className='options'>
                         <Link to='/signup'>Sign Up</Link> or <Link to='/'>Learn More</Link>
                     </p>

@@ -59,33 +59,33 @@
     overflow-y: scroll;
     margin-top: 4rem;
 }
-.card {
-    min-height: 400px;
-    width: 325px;
+#card {
+    height: 8rem;
+    width: 80vw;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 4rem 4rem 4rem;
+    flex-direction: row;
+    margin: 0 0 4rem 0;
     border: none;
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, .2);
+    background: white;
 }
 .card-content {
+    width: 100%;
+    padding-left: 2rem;
+    padding-right: 1rem;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     border: none;
-    height: 200px;
 }
 .recipe-image {
-    width: 325px;
-    height: 200px;
+    width: 8rem;
     object-fit: cover;
 }
 .recipe-title {
     font-size: 24px;
     text-align: center;
-    margin-top: 2rem;
 }
 .vegetarian {
     color: skyblue;
@@ -98,10 +98,11 @@
 .cheap {
     color: lightgreen;
     font-size: 16px;
-    margin: .5rem 0;
 }
 .expensive {
     color: red;
     font-size: 16px;
-    margin: 2rem 0;
+}
+.recipe-details-drawer {
+    width: 50vw;
 }

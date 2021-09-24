@@ -13,6 +13,8 @@ import ToggleIcon from "material-ui-toggle-icon";
 import IconButton from "@material-ui/core/IconButton";
 import Header from './constants/Header';
 import Drawer from '@mui/material/Drawer';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import Close from '@mui/icons-material/Close';
 
 function SearchPage({isWorking, checkIfReduxWorks}, props) {
     // const [login, setLogin] = useState(false);
@@ -24,7 +26,9 @@ function SearchPage({isWorking, checkIfReduxWorks}, props) {
         console.log(searchValue)
         axios.post('https://reciplease-application.herokuapp.com/recipe', {recipe: searchValue})
             .then(res => {
+                console.log(res.data)
                 const likedProp = res.data.map(recipe => {
+                    recipe.open = false;
                     recipe.liked = false;
                     return recipe;
                 })
@@ -63,31 +67,66 @@ function SearchPage({isWorking, checkIfReduxWorks}, props) {
                     let recipeImage = recipe.image
                     let cheap = recipe.cheap
                     let recipeId = recipe.id
-                    let liked = false
+                    let liked = recipe.liked
                     return (
-                        <div className="card">
+                        <div id="card">
                             <img className="recipe-image" src={recipeImage} alt="recipe"/>
                             <div className="card-content">
                                 <h2 className="recipe-title">{recipeName}</h2>
                                 {vegetarian ? <p className="vegetarian">Vegetarian</p> : null}
                                 {vegan ? <p className="vegan">Vegan</p> : null}
                                 {cheap ? <p className="cheap">Cost-friendly</p> : null}
-                                <IconButton onClick={() => {setResults(
+                                <IconButton  size="large" onClick={() => {setResults(
                                     results.map(recipe => {
                                         if (recipe.id === recipeId) {
-                                            recipe.liked = !recipe.liked;
+                                            recipe.open = !recipe.open;
                                         }
                                         return recipe
                                     })
                                 )}}>
                                     <ToggleIcon
                                         id="heart-icon"
-                                        on={recipe.liked}
-                                        onIcon={<FavoriteIcon/>}
-                                        offIcon={<FavoriteBorderIcon/>}
+                                        on={recipe.open}
+                                        onIcon={<Close fontSize="large"/>}
+                                        offIcon={<KeyboardArrowRightIcon fontSize="large"/>}
                                     />
                                 </IconButton>
                             </div>
+                            <Drawer open={recipe.open} anchor='left'>
+                                <div className="recipe-details-drawer">
+                                    <div onClick={() => {setResults(
+                                        results.map(recipe => {
+                                            if (recipe.id === recipeId) {
+                                                recipe.open = !recipe.open;
+                                            }
+                                            return recipe
+                                        })
+                                    )}}>
+                                        <Close/>
+                                    </div>
+                                    <h1 className="recipe-details-title">{recipeName}</h1>
+                                    <img className="recipe-details-image" src={recipeImage} alt="recipe"/>
+                                    <p>{recipeDescription}</p>
+                                    {vegetarian ? <p className="vegetarian">Vegetarian</p> : null}
+                                    {vegan ? <p className="vegan">Vegan</p> : null}
+                                    {cheap ? <p className="cheap">Cost-friendly</p> : null}
+                                    <IconButton  size="large" onClick={() => {setResults(
+                                        results.map(recipe => {
+                                            if (recipe.id === recipeId) {
+                                                recipe.liked = !recipe.liked;
+                                            }
+                                            return recipe
+                                        })
+                                    )}}>
+                                        <ToggleIcon
+                                            id="heart-icon"
+                                            on={liked}
+                                            onIcon={<FavoriteIcon fontSize="large"/>}
+                                            offIcon={<FavoriteBorderIcon fontSize="large"/>}
+                                        />
+                                    </IconButton>
+                                </div>
+                            </Drawer>
                         </div>
                     )
                 }) : console.log('no results')}
