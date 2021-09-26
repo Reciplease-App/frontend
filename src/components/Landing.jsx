@@ -1,13 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { checkIfReduxWorks } from '../store';
 import '../styles/landing.scss';
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router';
 
-function Landing({isWorking, checkIfReduxWorks}) {
-    // const [login, setLogin] = useState(false);
-    // const [signup, setSignup] = useState(false);
+function Landing() {
 
     const history = useHistory()
 
@@ -24,10 +20,4 @@ function Landing({isWorking, checkIfReduxWorks}) {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        isWorking: state.isWorking
-    }
-}
-
-export default connect(mapStateToProps, {checkIfReduxWorks})(Landing)
+export default Landing

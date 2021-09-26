@@ -1,6 +1,5 @@
 import React from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import ButtonUnstyled from '@mui/core/ButtonUnstyled';
 import MenuIcon from '@mui/icons-material/Menu';
 import '../../styles/header.scss'
 import { useHistory, useLocation } from 'react-router';

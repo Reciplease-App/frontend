@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { checkIfReduxWorks } from '../store';
 import '../styles/search.scss';
 import Search from '@mui/icons-material/Search'
 import { InputBase } from '@mui/material'
@@ -15,14 +14,14 @@ import Drawer from '@mui/material/Drawer';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Close from '@mui/icons-material/Close';
 import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress'
 
-function SearchPage({isWorking, checkIfReduxWorks}, props) {
-    // const [login, setLogin] = useState(false);
-    // const [signup, setSignup] = useState(false);
+function SearchPage() {
     const [results, setResults] = useState([]);
     const [searchValue, setSearchValue] = useState('');
 
     const [loading, setLoading] = useState(false);
+    const [pageLoading, setPageLoading] = useState(true);
 
     const drawerStyles = {
         background: '#f8f0e3',
@@ -52,15 +51,20 @@ function SearchPage({isWorking, checkIfReduxWorks}, props) {
             })
     }
 
-    String.prototype.replaceAll = function(search, replacement) {
-        var target = this;
-        return target.replace(new RegExp(search, 'g'), replacement);
-    }
+    useEffect(() => {
+        const togglePageLoading = () => {
+            setPageLoading(!pageLoading)
+        }
+        if (pageLoading) {
+            setTimeout(togglePageLoading, 20000)
+        }
+    }, [])
     
     return (
         <div className="search-content">
             <Header/>
-            <div className="search-bar">
+            {pageLoading ? <LinearProgress value={30} style={{width: '60vw', height: '1rem'}} color="success" /> : null}
+            <div className="search-bar" id={pageLoading ? 'search-bar-loading' : ''}>
                 <div className="search-icon-wrapper">
                     <Search fontSize='large' />
                 </div>
@@ -74,7 +78,7 @@ function SearchPage({isWorking, checkIfReduxWorks}, props) {
             </div>
             <CircularProgress color="success" style={{display: `${loading ? '' : 'none'}`, marginTop: '2rem'}}/>
             <div className="cards-wrapper" id={loading ? 'cards-wrapper-loading' : ''}>
-                {results && !loading ? results.map(recipe => {
+                {results.length > 0 && !loading ? results.map(recipe => {
                     let recipeName = recipe.title
                     let recipeDescription = recipe.summary.replaceAll('<b>', '').replaceAll('</b>', '').replaceAll('<a href="', '').replaceAll('>', '').replaceAll('</a', '').replaceAll('"', ' ')
                     let vegetarian = recipe.vegetarian
@@ -83,17 +87,6 @@ function SearchPage({isWorking, checkIfReduxWorks}, props) {
                     let cheap = recipe.cheap
                     let recipeId = recipe.id
                     let liked = recipe.liked
-
-
-                    
-                    // [...recipeDescription].map(() => {
-                    //     recipeLinks.forEach(link => {
-                    //         if (recipeDescription.includes(link)) {
-                    //             console.log('as;ldkfj', recipeDescription)
-                    //         }
-                    //     })
-                    // })
-
                     
                     return (
                         <div
@@ -172,4 +165,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {checkIfReduxWorks})(SearchPage)
+export default connect(mapStateToProps)(SearchPage)

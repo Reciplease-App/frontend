@@ -1,7 +1,6 @@
-import {HAMBURGER_MENU, REDUX_WORKS} from '../actions/actions'
+import {HAMBURGER_MENU} from '../actions/actions'
 import {SEARCH_SCREEN_ACTIVE} from '../actions/actions'
 const initialState = {
-    isWorking: false,
     pathname: '',
     menuOpen: false
 }
@@ -12,11 +11,6 @@ export const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 pathname: action.payload
-            }
-        case REDUX_WORKS:
-            return {
-                ...state,
-                isWorking: !state.isWorking
             }
         case HAMBURGER_MENU:
             return {
