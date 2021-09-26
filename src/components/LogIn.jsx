@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
-import { Button, TextField } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-
+import { TextField } from '@material-ui/core';
+import { Link, useHistory } from 'react-router-dom';
+import ButtonUnstyled from '@mui/core/ButtonUnstyled';
+import '../styles/login.scss'
 import loginSchema from '../formSchema/loginSchema';
+import axios from 'axios';
+import Input from '@mui/material/Input';
+import { Button } from '@material-ui/core';
+
 
 const formValues = {
     email: '',
@@ -17,9 +22,20 @@ const formErrors = {
 }
 
 function LogIn() {
-
     const [loginValues, setLoginValues] = useState(formValues);
     const [loginErrors, setLoginErrors] = useState(formErrors);
+
+    const history = useHistory();
+
+    const onSubmit = (e) => {
+        e.preventDefault()
+        axios.post('https://reciplease-application.herokuapp.com/users/login', loginValues)
+            .then(res => {
+                console.log('congratulations you fuck, welcum to our website af', res)
+                history.push('/search')
+            })
+            .catch(err => {console.log(err)})
+    }
 
     const handleFormErrors = (name, value) => {
         Yup.reach(loginSchema,name).validate(value)
@@ -34,40 +50,34 @@ function LogIn() {
     const handleChange = (e) => {
         setLoginValues({...loginValues, [e.target.name]: e.target.value})
     }
-
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        handleFormErrors(e.target.name, e.target.value)
-        console.log('Congrats! You can search for delicious food!')
-        setLoginValues(formValues)
-    }
     
     return (
         <StyledSection>
             <StyledContainer>
                 <h1>Login</h1>
-                <p>Welcome back! Lettuce show you some more recipes to fall in love with!</p>
+                <p>Welcome back! Lettuce show you some more<br/> recipes to fall in love with!</p>
                 {formErrors.email && <p>{formErrors.email}</p>}
                 {formErrors.password && <p>{formErrors.password}</p>}
-                <form onSubmit={handleSubmit}>
-                    <TextField
-                        variant="outlined"
+                <form onSubmit={onSubmit}>
+                    <Input
+                        disableUnderline={true}
+                        id="login-input"
                         type='text'
                         name='email'
-                        placeholder='Email'
+                        placeholder='  Email'
                         value={loginValues.email}
                         onChange={handleChange}
                     />
-                    <TextField
-                        variant="outlined"
+                    <Input
+                        disableUnderline={true}
+                        id="login-input"
                         type='password'
                         name='password'
-                        placeholder='Password'
+                        placeholder='  Password'
                         value={loginValues.password}
                         onChange={handleChange}
                     />
-                    <Button variant="contained">Let's get cook'n</Button>
+                    <Button type='submit'>Let's get cook'n</Button>
                     <p className='options'>
                         <Link to='/signup'>Sign Up</Link> or <Link to='/'>Learn More</Link>
                     </p>
@@ -131,14 +141,16 @@ const StyledContainer = styled.div`
         button {
             background: #FCDE7B;
             font-size: 2.8rem;
-            width: 60%;
+            width: 25vw;
+            height: 50px;
             margin-top: 2%;
             margin-bottom: 3%;
             box-shadow: 0px 7px 29px rgba(0, 0, 0, 0.25);
             text-transform: none;
 
             :hover {
-                background: #FDF1CA;
+                background: coral;
+                color: white;
             }
         }
     }

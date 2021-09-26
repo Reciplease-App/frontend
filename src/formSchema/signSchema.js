@@ -1,6 +1,10 @@
 import * as Yup from 'yup';
 
 const signSchema = Yup.object().shape({
+    username: Yup
+        .string()
+        .required('username Is Required')
+        .min(2, 'Your username Needs to At Least Be 2 Characters Long'),
     email: Yup
         .string()
         .email('You Must Use a Valid Email Address')

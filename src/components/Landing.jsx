@@ -1,18 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { checkIfReduxWorks } from '../store';
+import '../styles/landing.scss';
+import { Button } from '@material-ui/core';
+import { useHistory } from 'react-router';
 
 function Landing({isWorking, checkIfReduxWorks}) {
-    const handleClick = e => {
-        console.log("it's working")
-        checkIfReduxWorks()
+    // const [login, setLogin] = useState(false);
+    // const [signup, setSignup] = useState(false);
+
+    const history = useHistory()
+
+    const onSubmit = () => {
+        history.push('/login')
     }
     
     return (
-        <div>
-            Hello From Reciplease Landing!
-            <button onClick={handleClick}>Let's get cook'n</button>
-            {isWorking && <p>Redux is working!! Boom!</p>}
+        <div className="content">
+            <h1 className="landing-title">Reciplease</h1>
+            <p className="landing-description">Don't know what to cook next? Browse the best recipes & save time.</p>
+            <Button id="submit-btn" onClick={onSubmit}>Let's get cook'n</Button>
         </div>
     )
 }

@@ -1,0 +1,47 @@
+.screen {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: url('../assets/brooke-lark-wMzx2nBdeng-unsplash\ 1.svg');
+}
+.content {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+    background: url('../assets/brooke-lark-wMzx2nBdeng-unsplash\ 1.svg');
+    background-size: cover;
+}
+.landing-title {
+    font-family: 'Rock Salt';
+    font-size: 72px;
+}
+.landing-description {
+    font-family: Roboto;
+    font-size: 28px;
+    width: 30%;
+    text-align: center;
+    margin: 4rem;
+    font-weight: 400;
+}
+#submit-btn {
+    background: #fcde7b;
+    padding: 1rem 6rem;
+    font-size: 28px;
+    color: black;
+    border: none;
+    font-weight: 238;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .15);
+    transition: .25s ease-in-out;
+
+    &:hover {
+        background: coral;
+        color: white;
+        box-shadow: 0 10px 20px 0 rgba(0, 0, 0, .3);
+    }
+}
