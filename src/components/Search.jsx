@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { checkIfReduxWorks } from '../store';
 import '../styles/search.scss';
-import { useHistory } from 'react-router';
 import Search from '@mui/icons-material/Search'
 import { InputBase } from '@mui/material'
 import ButtonUnstyled from '@mui/core/ButtonUnstyled';
@@ -15,6 +14,7 @@ import Header from './constants/Header';
 import Drawer from '@mui/material/Drawer';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Close from '@mui/icons-material/Close';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function SearchPage({isWorking, checkIfReduxWorks}, props) {
     // const [login, setLogin] = useState(false);
@@ -22,7 +22,17 @@ function SearchPage({isWorking, checkIfReduxWorks}, props) {
     const [results, setResults] = useState([]);
     const [searchValue, setSearchValue] = useState('');
 
+    const [loading, setLoading] = useState(false);
+
+    const drawerStyles = {
+        background: '#f8f0e3',
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh'
+    }
+
     const submitSearch = () => {
+        setLoading(true)
         console.log(searchValue)
         axios.post('https://reciplease-application.herokuapp.com/recipe', {recipe: searchValue})
             .then(res => {
@@ -34,14 +44,18 @@ function SearchPage({isWorking, checkIfReduxWorks}, props) {
                 })
                 setResults(likedProp);
             })
+            .finally(() => {
+                setLoading(false);
+            })
             .catch(err => {
                 console.log(err)
             })
     }
 
-
-
-    const history = useHistory()
+    String.prototype.replaceAll = function(search, replacement) {
+        var target = this;
+        return target.replace(new RegExp(search, 'g'), replacement);
+    }
     
     return (
         <div className="search-content">
@@ -58,24 +72,38 @@ function SearchPage({isWorking, checkIfReduxWorks}, props) {
                 />
                 <ButtonUnstyled onClick={submitSearch} variant="contained" id="search-button">Search</ButtonUnstyled>
             </div>
-            <div className="cards-wrapper">
-                {results ? results.map(recipe => {
+            <CircularProgress color="success" style={{display: `${loading ? '' : 'none'}`, marginTop: '2rem'}}/>
+            <div className="cards-wrapper" id={loading ? 'cards-wrapper-loading' : ''}>
+                {results && !loading ? results.map(recipe => {
                     let recipeName = recipe.title
-                    let recipeDescription = recipe.summary
+                    let recipeDescription = recipe.summary.replaceAll('<b>', '').replaceAll('</b>', '').replaceAll('<a href="', '').replaceAll('>', '').replaceAll('</a', '').replaceAll('"', ' ')
                     let vegetarian = recipe.vegetarian
                     let vegan = recipe.vegan
                     let recipeImage = recipe.image
                     let cheap = recipe.cheap
                     let recipeId = recipe.id
                     let liked = recipe.liked
+
+
+                    
+                    // [...recipeDescription].map(() => {
+                    //     recipeLinks.forEach(link => {
+                    //         if (recipeDescription.includes(link)) {
+                    //             console.log('as;ldkfj', recipeDescription)
+                    //         }
+                    //     })
+                    // })
+
+                    
                     return (
-                        <div id="card">
+                        <div
+                        id="card">
                             <img className="recipe-image" src={recipeImage} alt="recipe"/>
                             <div className="card-content">
                                 <h2 className="recipe-title">{recipeName}</h2>
-                                {vegetarian ? <p className="vegetarian">Vegetarian</p> : null}
-                                {vegan ? <p className="vegan">Vegan</p> : null}
-                                {cheap ? <p className="cheap">Cost-friendly</p> : null}
+                                {vegetarian ? <p style={{display: 'none'}} className="vegetarian">Vegetarian</p> : null}
+                                {vegan ? <p style={{display: 'none'}} className="vegan">Vegan</p> : null}
+                                {cheap ? <p style={{display: 'none'}} className="cheap">Cost-friendly</p> : null}
                                 <IconButton  size="large" onClick={() => {setResults(
                                     results.map(recipe => {
                                         if (recipe.id === recipeId) {
@@ -92,12 +120,12 @@ function SearchPage({isWorking, checkIfReduxWorks}, props) {
                                     />
                                 </IconButton>
                             </div>
-                            <Drawer open={recipe.open} anchor='left'>
+                            <Drawer PaperProps={{style: drawerStyles}} open={recipe.open} anchor='left'>
                                 <div className="recipe-details-drawer">
-                                    <div onClick={() => {setResults(
+                                    <div id="drawer-close-icon" onClick={() => {setResults(
                                         results.map(recipe => {
                                             if (recipe.id === recipeId) {
-                                                recipe.open = !recipe.open;
+                                                recipe.open = !recipe.open
                                             }
                                             return recipe
                                         })
@@ -106,11 +134,14 @@ function SearchPage({isWorking, checkIfReduxWorks}, props) {
                                     </div>
                                     <h1 className="recipe-details-title">{recipeName}</h1>
                                     <img className="recipe-details-image" src={recipeImage} alt="recipe"/>
-                                    <p>{recipeDescription}</p>
-                                    {vegetarian ? <p className="vegetarian">Vegetarian</p> : null}
-                                    {vegan ? <p className="vegan">Vegan</p> : null}
-                                    {cheap ? <p className="cheap">Cost-friendly</p> : null}
-                                    <IconButton  size="large" onClick={() => {setResults(
+                                    <p className="recipe-details-description">{recipeDescription}</p>
+                                    <div className="diet-details" id={!vegetarian && !vegan && !cheap ? 'diet-tags-hidden' : ''}>
+                                        {vegetarian ? <p className="vegetarian">Vegetarian</p> : null}
+                                        {vegan ? <p className="vegan">Vegan</p> : null}
+                                        {cheap ? <p className="cheap">Cost-friendly</p> : null}
+                                    </div>
+                                    <IconButton  size="large" onClick={() => {
+                                        setResults(
                                         results.map(recipe => {
                                             if (recipe.id === recipeId) {
                                                 recipe.liked = !recipe.liked;

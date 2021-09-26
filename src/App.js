@@ -4,8 +4,6 @@ import Login from './components/LogIn'
 import Landing from './components/Landing'
 import SignUp from './components/SignUp'
 import SearchPage from './components/Search'
-
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/app.scss'
 
 function App() {

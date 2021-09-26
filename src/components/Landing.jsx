@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { checkIfReduxWorks } from '../store';
 import '../styles/landing.scss';
-import Button from 'react-bootstrap/Button';
+import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router';
 
 function Landing({isWorking, checkIfReduxWorks}) {
