@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import * as Yup from 'yup';
+import React, { useState, useEffect } from 'react';
+// import * as Yup from 'yup';
 import { Link, useHistory } from 'react-router-dom';
-import '../styles/login.scss'
-import loginSchema from '../formSchema/loginSchema';
+// import loginSchema from '../formSchema/loginSchema';
 import axios from 'axios';
 import Input from '@mui/material/Input';
-import { Button } from '@material-ui/core';
-import { useEffect } from 'react/cjs/react.development';
+import { ButtonUnstyled } from '@mui/material';
 
 const formErrors = {
     email: '',
@@ -15,7 +13,7 @@ const formErrors = {
 
 function LogIn() {
     const [loginValues, setLoginValues] = useState({});
-    const [loginErrors, setLoginErrors] = useState(formErrors);
+    // const [loginErrors, setLoginErrors] = useState(formErrors);
 
     useEffect(() => {
         setLoginValues({
@@ -31,7 +29,7 @@ function LogIn() {
 
     const onSubmit = (e) => {
         e.preventDefault()
-        axios.post('https://reciplease-application.herokuapp.com/users/login', loginValues)
+        axios.post('https://reciplease-backend.vercel.app/users/login', loginValues)
             .then(res => {
                 console.log('congratulations you fuck, welcum to our website af', res)
                 history.push('/search');
@@ -39,15 +37,15 @@ function LogIn() {
             .catch(err => {console.log(err)})
     }
 
-    const handleFormErrors = (name, value) => {
-        Yup.reach(loginSchema,name).validate(value)
-            .then(valid => {
-                setLoginErrors({...loginErrors, [name]: ''})
-            })
-            .catch(err => {
-                setLoginErrors({...loginErrors, [name]: err.errors[0]})
-            })
-    }
+    // const handleFormErrors = (name, value) => {
+    //     Yup.reach(loginSchema,name).validate(value)
+    //         .then(valid => {
+    //             setLoginErrors({...loginErrors, [name]: ''})
+    //         })
+    //         .catch(err => {
+    //             setLoginErrors({...loginErrors, [name]: err.errors[0]})
+    //         })
+    // }
 
     const handleChange = (e) => {
         setLoginValues({...loginValues, [e.target.name]: e.target.value})
@@ -77,7 +75,7 @@ function LogIn() {
                         placeholder='  Password'
                         onChange={handleChange}
                     />
-                    <Button type='submit'>Let's get cook'n</Button>
+                    <ButtonUnstyled type='submit'>Let's get cook'n</ButtonUnstyled>
                     <p className='options'>
                         <Link to='/signup'>Sign Up</Link> or <Link to='/'>Learn More</Link>
                     </p>

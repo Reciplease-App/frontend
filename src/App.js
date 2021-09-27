@@ -1,21 +1,35 @@
 import { Route, Switch } from 'react-router-dom'
-
-import Login from './components/LogIn'
-import Landing from './components/Landing'
-import SignUp from './components/SignUp'
-import SearchPage from './components/Search'
+import React from 'react'
 import './styles/app.scss'
+import { Suspense } from 'react'
+import LoadingScreen from './components/LoadingScreen'
+import Landing from './components/Landing'
+const Login = React.lazy(() => import('./components/LogIn'))
+const SignUp = React.lazy(() => import('./components/SignUp'))
+const SearchPage = React.lazy(() => import('./components/Search'))
 
 function App() {
   return (
-    <div className="body">
-      <Switch>
-        <Route path='/login' component={Login} />
-        <Route path='/signup' component={SignUp} />
-        <Route exact path='/' component={Landing} />
-        <Route path='/search' component={SearchPage} />
-      </Switch>
-    </div>
+    <Switch>
+      <Route path='/login'>
+        <Suspense fallback={<LoadingScreen/>}>
+          <Login/>
+        </Suspense>
+      </Route>
+      <Route path='/signup'>
+        <Suspense fallback={<LoadingScreen/>}>
+          <SignUp/>
+        </Suspense>
+      </Route>
+      <Route exact path='/'>
+        <Landing/>
+      </Route>
+      <Route path='/search'>
+        <Suspense fallback={<LoadingScreen/>}>
+          <SearchPage/>
+        </Suspense>
+      </Route>
+    </Switch>
   );
 }
 

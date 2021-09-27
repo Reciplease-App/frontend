@@ -5,7 +5,7 @@
     flex-direction: column;
     align-items: center;
     padding: 12rem 2rem 4rem 2rem;
-    background: url('../assets/lukas-blazek-f-TWhXOrLiU-unsplash\ 1.svg');
+    background: url('../assets/reciplease-search.png');
     background-size: cover;
 }
 .search-bar {
@@ -71,6 +71,9 @@
 }
 #cards-wrapper-loading {
     opacity: 0
+}
+#no-wrapper {
+    display: none;
 }
 #card {
     height: 8rem;

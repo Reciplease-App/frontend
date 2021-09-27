@@ -85,7 +85,7 @@ function SignUp() {
 
     const postNewUser = (newUser) => {
         console.log(newUser)
-        axios.post('https://reciplease-application.herokuapp.com/users/register', newUser)
+        axios.post('https://reciplease-backend.vercel.app/users/register', newUser)
             .then((res) => {
                 push("/register")
             })

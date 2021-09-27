@@ -1,7 +1,6 @@
 import React from 'react';
-import '../styles/landing.scss';
-import { Button } from '@material-ui/core';
-import { useHistory } from 'react-router';
+import { ButtonUnstyled } from '@mui/material';
+import { useHistory } from 'react-router-dom';
 
 function Landing() {
 
@@ -15,7 +14,7 @@ function Landing() {
         <div className="content">
             <h1 className="landing-title">Reciplease</h1>
             <p className="landing-description">Don't know what to cook next? Browse the best recipes & save time.</p>
-            <Button id="submit-btn" onClick={onSubmit}>Let's get cook'n</Button>
+            <ButtonUnstyled id="submit-btn" onClick={onSubmit}>Let's get cook'n</ButtonUnstyled>
         </div>
     )
 }
