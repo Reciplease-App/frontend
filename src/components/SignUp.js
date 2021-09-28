@@ -56,11 +56,17 @@ function SignUp() {
             })
     }, [formValues])
 
+<<<<<<< HEAD:src/components/SignUp.jsx
     const handleSubmit = (e) => {
         e.preventDefault();
         setMessage("Loading...")
         
         axios.post('https://reciplease-application.herokuapp.com/users/register', formValues)
+=======
+    const postNewUser = (newUser) => {
+        console.log(newUser)
+        axios.post('https://reciplease-backend.vercel.app/users/register', newUser)
+>>>>>>> 3b4029153247ae1df60c52fc1bf69367b7992ca0:src/components/SignUp.js
             .then((res) => {
                 setMessage("Sign Up Successful!")
                 localStorage.setItem("token", res.data.token)

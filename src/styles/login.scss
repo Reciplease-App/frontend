@@ -7,3 +7,71 @@
     font-size: 24px;
     padding-left: 8px;
 }
+.login-screen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: url('../assets/edgar-castrejon-1CsaVdwfIew-unsplash.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 20% 45%;
+}
+.login-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    background: rgba(235, 244, 255, 0.95);
+    h1 {
+        font-size: 6.4rem;
+        margin-top: 5%;
+        margin-bottom: 4%;
+        font-weight: bold;
+    }
+    p {
+        font-size: 1.8rem;
+        width: 454px;
+        text-align: center;
+        margin-bottom: 5%;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        .MuiFormControl-root {
+            margin-bottom: 5%;
+            width: 358px;
+            background: #ffffff;
+            width: 60%;
+            box-shadow: 0px 7px 29px rgba(0, 0, 0, 0.25);
+            
+            input {
+                font-size: 2.5rem;
+            }
+        }
+        button {
+            background: #FCDE7B;
+            font-size: 2.8rem;
+            width: 25vw;
+            height: 50px;
+            margin-top: 2%;
+            margin-bottom: 3%;
+            box-shadow: 0px 7px 29px rgba(0, 0, 0, 0.25);
+            text-transform: none;
+
+            :hover {
+                background: coral;
+                color: white;
+            }
+        }
+    }
+    .options, a {
+        font-size: 2rem;
+        color: #F17012;
+    }
+}
