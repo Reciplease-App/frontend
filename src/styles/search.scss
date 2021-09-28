@@ -53,6 +53,7 @@
     transition: .25s ease-in-out;
 
     &:hover {
+        cursor: pointer;
         color: white;
         background: coral;
     }
@@ -64,7 +65,7 @@
     overflow-y: scroll;
     margin-top: 4rem;
     box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-    background: linear-gradient(to right, coral, white, gold);
+    background: linear-gradient(to right, #FCDE7B, transparent);
     border-radius: 8px;
     transition: opacity .75s;
     opacity: 1;
@@ -87,7 +88,7 @@
     border-radius: 0 8px 8px 0;
 
     &:hover {
-        background: lightcoral;
+        background: #f8f0e3;
         cursor: pointer;
     }
 }
