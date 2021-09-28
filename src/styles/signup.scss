@@ -38,6 +38,22 @@
             color: red;
         }
 
+        .error-modal {
+            background: #ea1601;
+            color: white;
+            border-radius: 10px;
+            width: 55%;
+            padding: 2%;
+        }
+
+        .success-modal {
+            background: #64bc26;
+            color: white;
+            border-radius: 10px;
+            width: 55%;
+            padding: 2%;
+        }
+
         .MuiInputBase-root { 
             margin-bottom: 5%;
             width: 60%;

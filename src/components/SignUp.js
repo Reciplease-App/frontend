@@ -6,6 +6,8 @@ import {useHistory, Link} from 'react-router-dom';
 import "../styles/signup.scss";
 import { Input } from '@material-ui/core';
 import { Button } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const initialValues = {
     username: '',
@@ -18,6 +20,7 @@ function SignUp() {
     const [formErrors, setFormErrors] = useState(initialValues)
     const [disabledBtn, setDisabledBtn] = useState(true)
     const [message, setMessage] = useState("")
+    const [activeClass, setActiveClass] = useState(null)
     
     const { push } = useHistory();
 
@@ -56,25 +59,22 @@ function SignUp() {
             })
     }, [formValues])
 
-<<<<<<< HEAD:src/components/SignUp.jsx
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        setMessage("Loading...")
+        setMessage(<CircularProgress />)
         
-        axios.post('https://reciplease-application.herokuapp.com/users/register', formValues)
-=======
-    const postNewUser = (newUser) => {
-        console.log(newUser)
-        axios.post('https://reciplease-backend.vercel.app/users/register', newUser)
->>>>>>> 3b4029153247ae1df60c52fc1bf69367b7992ca0:src/components/SignUp.js
+        axios.post('https://reciplease-backend.vercel.app/users/register', formValues)
             .then((res) => {
-                setMessage("Sign Up Successful!")
+                setActiveClass("success-modal")
+                setMessage("Succes!")
                 localStorage.setItem("token", res.data.token)
                 setTimeout(() => {
-                    push("/cookbook")
+                    push("/search")
                 }, 2000)
             })
             .catch(err => {
+                setActiveClass("error-modal")
                 setMessage(err.message)
             })
             .finally(() => {
@@ -87,7 +87,9 @@ function SignUp() {
                 <form onSubmit={handleSubmit}>
                     <h3>Sign Up</h3>
                     <p>Don’t worry, we aren’t doing anything with your info! Just need you to create an account to save the recipes you love.</p>
-                        
+
+                    { message ? <p className={activeClass}>{message}</p> : null}
+
                     { formErrors.username && 
                         <p className="errors">{formErrors.username}</p> }
                     <Input
@@ -127,7 +129,6 @@ function SignUp() {
                     <p>
                         Already have an account? <Link to="/login">Login here</Link>
                     </p>
-                    { message ? <p>{message}</p> : null}
                 </form>
             </div>
     )
