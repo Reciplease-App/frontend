@@ -19,8 +19,10 @@ function SignUp() {
     const [formValues, setFormValues] = useState(initialValues)
     const [formErrors, setFormErrors] = useState(initialValues)
     const [disabledBtn, setDisabledBtn] = useState(true)
-    const [message, setMessage] = useState("")
-    const [activeClass, setActiveClass] = useState(null)
+    const [signUpSuccess, setSignUpSuccess] = useState({
+        message: "",
+        activeClass: ""
+    })
     
     const { push } = useHistory();
 
@@ -62,20 +64,27 @@ function SignUp() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setMessage(<CircularProgress />)
+        setSignUpSuccess({
+            ...signUpSuccess,
+            message: <CircularProgress />
+        })
         
         axios.post('https://reciplease-backend.vercel.app/users/register', formValues)
             .then((res) => {
-                setActiveClass("success-modal")
-                setMessage("Succes!")
+                setSignUpSuccess({
+                    message: "Success!",
+                    activeClass:"success-modal"
+                })
                 localStorage.setItem("token", res.data.token)
                 setTimeout(() => {
                     push("/search")
                 }, 2000)
             })
             .catch(err => {
-                setActiveClass("error-modal")
-                setMessage(err.message)
+                setSignUpSuccess({
+                    message: err.message,
+                    activeClass: "error-modal"
+                })
             })
             .finally(() => {
                 setFormValues(initialValues)
@@ -88,7 +97,7 @@ function SignUp() {
                     <h3>Sign Up</h3>
                     <p>Don’t worry, we aren’t doing anything with your info! Just need you to create an account to save the recipes you love.</p>
 
-                    { message ? <p className={activeClass}>{message}</p> : null}
+                    { signUpSuccess ? <p className={signUpSuccess.activeClass}>{signUpSuccess.message}</p> : null}
 
                     { formErrors.username && 
                         <p className="errors">{formErrors.username}</p> }
