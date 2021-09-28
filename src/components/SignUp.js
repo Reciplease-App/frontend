@@ -1,47 +1,33 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import schema from '../formSchema/signSchema';
 import axios from 'axios';
+import {useHistory, Link} from 'react-router-dom';
+import "../styles/signup.scss";
+import { Input } from '@material-ui/core';
+import { Button } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
-import {useHistory} from 'react-router-dom';
+
+const initialValues = {
+    username: '',
+    email: '',
+    password: '',
+}
 
 function SignUp() {
+    const [formValues, setFormValues] = useState(initialValues)
+    const [formErrors, setFormErrors] = useState(initialValues)
+    const [disabledBtn, setDisabledBtn] = useState(true)
+    const [signUpSuccess, setSignUpSuccess] = useState({
+        message: "",
+        activeClass: ""
+    })
+    
+    const { push } = useHistory();
 
-    const {push} = useHistory();
-
-    //INITIAL VALUES
-    const initialFormValues = {
-        username: '',
-        email: '',
-        password: '',
-    }
-
-    const initialDisabled = true;
-
-    const initialFormErrors = {
-        username: '',
-        email: '',
-        password: '',
-    }
-
-    //STATE
-    // const [users, setUser] = useState([]) will this become a 'cook book' variable?
-    const [formValues, setFormValues] = useState(initialFormValues)
-    const [disabled, setDisabled] = useState(initialDisabled)
-    const [formErrors, setFormErrors] = useState(initialFormErrors)
-
-    //SIDE EFFECTS
-    useEffect(() => {
-        schema.isValid(formValues)
-          .then((valid) => {
-              setDisabled(!valid)
-          })
-      }, [formValues])
-
-    //HELPER FUNCTIONS
     const onChange = (evt) => {
         const { name, value, } = evt.target;
-
         inputChange(name, value);
     }
 
@@ -61,96 +47,100 @@ function SignUp() {
                     [name]: err.errors[0],
                 })
             })
+
         setFormValues({
             ...formValues,
             [name]: value,
         })
     }
 
-    const onSubmit = (evt) => {
-        evt.preventDefault()
-        formSubmit()
-    }
+    useEffect(() => {
+        schema.isValid(formValues)
+            .then(valid => {
+                setDisabledBtn(!valid)
+            })
+    }, [formValues])
 
-    const formSubmit = () => {
-        const newUser = {
 
-            username: formValues.username.trim(),
-            email: formValues.email.trim(),
-            password: formValues.password.trim(),
-
-        }
-        postNewUser(newUser)
-    }
-
-    const postNewUser = (newUser) => {
-        console.log(newUser)
-        axios.post('https://reciplease-backend.vercel.app/users/register', newUser)
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setSignUpSuccess({
+            ...signUpSuccess,
+            message: <CircularProgress />
+        })
+        
+        axios.post('https://reciplease-backend.vercel.app/users/register', formValues)
             .then((res) => {
-                push("/register")
+                setSignUpSuccess({
+                    message: "Success!",
+                    activeClass:"success-modal"
+                })
+                localStorage.setItem("token", res.data.token)
+                setTimeout(() => {
+                    push("/search")
+                }, 2000)
             })
             .catch(err => {
-                console.log('POST ERR -->', err)
+                setSignUpSuccess({
+                    message: err.message,
+                    activeClass: "error-modal"
+                })
             })
             .finally(() => {
-                setFormValues(initialFormValues)
+                setFormValues(initialValues)
             })
     }
 
-
     return (
-        <div className=''>
-            <div id=''>
-                <form onSubmit={onSubmit}>
+        <div className="signup-container">
+                <form onSubmit={handleSubmit}>
+                    <h3>Sign Up</h3>
+                    <p>Don’t worry, we aren’t doing anything with your info! Just need you to create an account to save the recipes you love.</p>
 
-                    <div className="errors">
-                        <div>{formErrors.username}</div>
-                        <div>{formErrors.email}</div>
-                        <div>{formErrors.password}</div>
+                    { signUpSuccess ? <p className={signUpSuccess.activeClass}>{signUpSuccess.message}</p> : null}
 
-                    </div>
+                    { formErrors.username && 
+                        <p className="errors">{formErrors.username}</p> }
+                    <Input
+                            variant="outlined"
+                            name='username'
+                            type='text'
+                            value={formValues.username}
+                            onChange={onChange}
+                            placeholder='Username'
+                            disableUnderline
+                        />
 
-                    <div>
-                        <h3>Sign Up</h3>
-                        <label> Username:
-                            <input
-                                name='username'
-                                type='text'
-                                value={formValues.username}
-                                onChange={onChange}
-                                placeholder='Name here'
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <label> Email:
-                            <input
-                                name='email'
-                                type='email'
-                                value={formValues.email}
-                                onChange={onChange}
-                                placeholder='Email address here'
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <label> Password:
-                            <input
-                                name='password'
-                                type='password'
-                                value={formValues.password}
-                                onChange={onChange}
-                                placeholder='Password here'
-                            />
-                        </label>
-                    </div>
+                    { formErrors.email && 
+                        <p className="errors">{formErrors.email}</p> }
+                    <Input
+                        name='email'
+                        type='email'
+                        value={formValues.email}
+                        onChange={onChange}
+                        placeholder='Email'
+                        disableUnderline
+                    />
 
-                    <button disabled={disabled}>Submit</button>
+                    { formErrors.password && 
+                        <p className="errors">{formErrors.password}</p> }
+                    <Input
+                        name='password'
+                        type='password'
+                        value={formValues.password}
+                        onChange={onChange}
+                        placeholder='Password'
+                        disableUnderline
+                    />
+                        
+                    <Button variant="contained" type="submit" disabled={disabledBtn}>Submit</Button>
 
+                    <p>
+                        Already have an account? <Link to="/login">Login here</Link>
+                    </p>
                 </form>
             </div>
-        </div>
     )
 }
 
-export default SignUp
+export default SignUp;
