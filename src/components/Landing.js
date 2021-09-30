@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ButtonUnstyled } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
 
 function Landing() {
     const [ searchValue, setSearchValue ] = useState("");
@@ -18,11 +19,11 @@ function Landing() {
         setLoading(true);
         axios.post('https://reciplease-backend.vercel.app/recipe', {recipe: searchValue})
             .then(res => {
+                console.log(res.data)
                 setResults(res.data);
             })
             .finally(() => {
                 setLoading(false);
-                console.log(results);
             })
             .catch(err => {
                 console.log(err);
@@ -48,15 +49,32 @@ function Landing() {
                 />
                 <button type="submit" >Search</button>
             </form>
-            <div>
+            <CardContainer>
                 { results.map((result) => ( 
-                    <div id={result.id}>
-                        <h1></h1>
-                    </div> 
+                    <Card id={result.id} >
+                        <h1>{result.title}</h1>
+                    </Card> 
                 ))}
-            </div>
+            </CardContainer>
         </div>
     )
 }
+
+const CardContainer = styled.div`
+    margin-top: 5vh;
+    width: 80%;
+    height: 25vh;
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+`;
+
+const Card = styled.div`
+    flex: 0 0 auto;
+    border: 1px solid red;
+    width: 20vw;
+    height: 100%;
+`;
 
 export default Landing
