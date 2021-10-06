@@ -86,7 +86,7 @@ form {
 
     .card {
         flex: 0 0 auto;
-        width: 25vw;
+        width: 250px;
         height: 90%;
         margin: 0 1.5vw 0;
         background-color: white;
@@ -97,7 +97,7 @@ form {
         }
 
         img {
-            max-width: 100%;
+            width: 100%;
         }
 
         .card_content {
