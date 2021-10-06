@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { ButtonUnstyled } from '@mui/material';
+import { ButtonUnstyled, CircularProgress } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import styled from 'styled-components';
 
 function Landing() {
     const [ searchValue, setSearchValue ] = useState("");
@@ -39,7 +38,7 @@ function Landing() {
             <h1 className="landing-title">Reciplease</h1>
             <p className="landing-description">Don't know what to cook next?</p>
             <ButtonUnstyled id="submit-btn" onClick={onSubmit}>Let's get cook'n</ButtonUnstyled>
-            <form onSubmit={searchSubmit}>
+            <form className="search_form" onSubmit={searchSubmit}>
                 <input 
                     value={searchValue}
                     onChange={onChange}
@@ -49,32 +48,36 @@ function Landing() {
                 />
                 <button type="submit" >Search</button>
             </form>
-            <CardContainer>
-                { results.map((result) => ( 
-                    <Card id={result.id} >
-                        <h1>{result.title}</h1>
-                    </Card> 
-                ))}
-            </CardContainer>
+            <div 
+                className={`card_container ${ results.length >= 1 ? "" : "not_active" } `}
+            >
+                { 
+                    loading ?
+                    <div className="loading_container"> 
+                        <CircularProgress color="success" /> 
+                    </div>
+                    :
+                    results.map((result) => {
+                        let recipeDescription = result.summary.replaceAll('<b>', '').replaceAll('</b>', '').replaceAll('<a href="', '').replaceAll('>', '').replaceAll('</a', '').replaceAll('"', ' ');
+                        let descArray = recipeDescription.split(".");
+                        return (
+                            <div 
+                                className="card"
+                                key={result.id} 
+                            >
+                                <img src={result.image} alt={result.title} />
+                                <div className="card_content"> 
+                                    <h1>{result.title}</h1>
+                                    <p>{`${descArray[0]}.`}</p>
+                                    <p>Estimated prep & cook time: {result.readyInMinutes} minutes</p>
+                                </div>
+                            </div> 
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }
-
-const CardContainer = styled.div`
-    margin-top: 5vh;
-    width: 80%;
-    height: 25vh;
-    border: 1px solid black;
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-`;
-
-const Card = styled.div`
-    flex: 0 0 auto;
-    border: 1px solid red;
-    width: 20vw;
-    height: 100%;
-`;
 
 export default Landing

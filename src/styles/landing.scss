@@ -12,6 +12,7 @@
 .landing-title {
     font-family: 'Rock Salt';
     font-size: 72px;
+    margin-top: 20vh;
 }
 .landing-description {
     font-family: Roboto;
@@ -35,5 +36,90 @@
         background: coral;
         color: white;
         box-shadow: 0 10px 20px 0 rgba(0, 0, 0, .3);
+    }
+}
+form {
+    width: 40%;
+
+    input {
+        font-family: Roboto;
+        margin-top: 3vh;
+        width: 70%;
+        height: 4.5vh;
+        border: none;
+        font-size: 24px;
+        font-weight: 400;
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .15);
+    }
+    button {
+        font-family: Roboto;
+        width: 30%;
+        height: 4.5vh;
+        background: #fcde7b;
+        border: none;
+        font-size: 24px;
+        font-weight: 400;
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .15);
+        transition: .25s ease-in-out;
+
+        &:hover {
+            background: coral;
+            color: white;
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, .3);
+        }
+    }
+}
+.loading_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card_container {
+    margin-top: 3vh;
+    width: 84vw;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+
+    .card {
+        flex: 0 0 auto;
+        width: 25vw;
+        height: 90%;
+        margin: 0 1.5vw 0;
+        background-color: white;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .card_content {
+            padding: 10px;
+
+            h1 {
+                font-size: 1.8rem;
+                text-align: center;
+                font-weight: 500;
+            }
+    
+            p {
+                font-size: 1.2rem;
+                margin-top: 5px;
+                line-height: 1.5;
+            }
+        }
+
+    }
+}
+.not_active {
+    &::-webkit-scrollbar {
+        display: none;
     }
 }
