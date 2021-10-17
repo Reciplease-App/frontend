@@ -78,7 +78,7 @@ function SignUp() {
                 localStorage.setItem("token", res.data.token)
                 setTimeout(() => {
                     push("/search")
-                }, 2000)
+                }, 1500)
             })
             .catch(err => {
                 setSignUpSuccess({
