@@ -78,7 +78,7 @@ function SignUp() {
                 localStorage.setItem("token", res.data.token)
                 setTimeout(() => {
                     push("/search")
-                }, 2000)
+                }, 1500)
             })
             .catch(err => {
                 setSignUpSuccess({
@@ -95,7 +95,7 @@ function SignUp() {
         <div className="signup-container">
                 <form onSubmit={handleSubmit}>
                     <h3>Sign Up</h3>
-                    <p>Don’t worry, we aren’t doing anything with your info! Just need you to create an account to save the recipes you love.</p>
+                    <p>Create your account today and start searching and saving your favorite recipes!</p>
 
                     { signUpSuccess ? <p className={signUpSuccess.activeClass}>{signUpSuccess.message}</p> : null}
 
@@ -109,6 +109,7 @@ function SignUp() {
                             onChange={onChange}
                             placeholder='Username'
                             disableUnderline
+                            id="signup-input"
                         />
 
                     { formErrors.email && 
@@ -120,6 +121,7 @@ function SignUp() {
                         onChange={onChange}
                         placeholder='Email'
                         disableUnderline
+                        id="signup-input"
                     />
 
                     { formErrors.password && 
@@ -131,6 +133,7 @@ function SignUp() {
                         onChange={onChange}
                         placeholder='Password'
                         disableUnderline
+                        id="signup-input"
                     />
                         
                     <Button variant="contained" type="submit" disabled={disabledBtn}>Submit</Button>
