@@ -58,7 +58,7 @@ function LogIn() {
                     message: "Login Success",
                     activeClass: "success-modal"
                 })
-                localStorage.setItem("token", res.data.token)
+                window.localStorage.setItem("token", res.data.token)
                 setTimeout(() => {
                     history.push('/search');
                 }, 1500)

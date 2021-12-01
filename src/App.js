@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import React from 'react';
 import './styles/app.scss';
 import { Suspense } from 'react';
@@ -21,13 +21,22 @@ function App() {
           <SignUp/>
         </Suspense>
       </Route>
+      <Route 
+        path="/search"
+        render={() => {
+          if (!window.localStorage.getItem('token')) {
+            return <Redirect to="/login" />
+          } else {
+            return (
+              <Suspense fallback={<LoadingScreen />}>
+                <SearchPage />
+              </Suspense>
+            )
+          }
+        }}>
+      </Route>
       <Route exact path='/'>
         <Landing/>
-      </Route>
-      <Route>
-        <Suspense fallback={<LoadingScreen />}>
-          <SearchPage />
-        </Suspense>
       </Route>
     </Switch>
   );
