@@ -3,8 +3,8 @@ import '../styles/search.scss';
 import Header from './constants/Header';
 import { Search, FavoriteBorder, Favorite, KeyboardArrowRight } from '@mui/icons-material'
 import Close from '@mui/icons-material/Close'
-import { InputBase, Drawer, CircularProgress, IconButton, ButtonUnstyled } from '@mui/material'
-import axios from 'axios';
+import { InputBase, Drawer, CircularProgress, IconButton, Button } from '@mui/material'
+import {axiosWithAuth} from '../utils/axiosWithAuth';
 import ToggleIcon from "material-ui-toggle-icon";
 
 const drawerStyles = {
@@ -23,9 +23,12 @@ function SearchPage() {
 
     const [pageRendered, setPageRendered] = useState(false);
 
-    const submitSearch = () => {
+    const submitSearch = (e) => {
+        e.preventDefault()
         setLoading(true)
-        axios.post('https://reciplease-backend.vercel.app/recipe', {recipe: searchValue})
+
+        axiosWithAuth()
+            .post('/recipe', {recipe: searchValue})
             .then(res => {
                 const likedProp = res.data.map(recipe => {
                     recipe.open = false;
@@ -34,12 +37,12 @@ function SearchPage() {
                 })
                 setResults(likedProp);
             })
+            .catch(err => {
+                console.log(err)
+            })
             .finally(() => {
                 setLoading(false);
                 setPageRendered(true);
-            })
-            .catch(err => {
-                console.log(err)
             })
     }
     
@@ -47,19 +50,22 @@ function SearchPage() {
         <div>
             <Header/> 
                 {pageRendered ? <div className="search-content">
-                    <div className="search-bar">
-                        <div className="search-icon-wrapper">
-                            <Search fontSize='large' />
+                    <form onSubmit={submitSearch}>
+                        <div className="search-bar">
+                            <div className="search-icon-wrapper">
+                                <Search fontSize='large' />
+                            </div>
+                            <InputBase
+                            placeholder="Search by Recipe Name, Ingredient"
+                            inputProps={{ 'aria-label': 'search' }}
+                            id="search-input"
+                            value={searchValue}
+                            onChange={(e) => {setSearchValue(e.target.value)}}
+                            />
+                            <Button  variant="contained" id="search-button">Search</Button>
+
                         </div>
-                        <InputBase
-                        placeholder="Search by Recipe Name, Ingredient"
-                        inputProps={{ 'aria-label': 'search' }}
-                        id="search-input"
-                        value={searchValue}
-                        onChange={(e) => {setSearchValue(e.target.value)}}
-                        />
-                        <ButtonUnstyled onClick={submitSearch} variant="contained" id="search-button">Search</ButtonUnstyled>
-                    </div>
+                    </form>
                     <CircularProgress color="success" style={{display: `${loading ? '' : 'none'}`, marginTop: '2rem'}}/>
                         <div className="cards-wrapper" id={loading ? 'cards-wrapper-loading' : ''}>
                             {!results ? console.log('nothin to see here') : results && !loading ? results.map(recipe => {
@@ -142,19 +148,22 @@ function SearchPage() {
                 </div>
                 :
                 <div className="search-content">
-                <div className="search-bar">
-                    <div className="search-icon-wrapper">
-                        <Search fontSize='large' />
-                    </div>
+                <form onSubmit={submitSearch}>
+                    <div className="search-bar">
+                        <div className="search-icon-wrapper">
+                            <Search fontSize='large' />
+                        </div>
                         <InputBase
-                        placeholder="Search by Recipe Name, Ingredient"
-                        inputProps={{ 'aria-label': 'search' }}
-                        id="search-input"
-                        value={searchValue}
-                        onChange={(e) => {setSearchValue(e.target.value)}}
+                            placeholder="Search by Recipe Name, Ingredient"
+                            inputProps={{ 'aria-label': 'search' }}
+                            id="search-input"
+                            value={searchValue}
+                            onChange={(e) => {setSearchValue(e.target.value)}}
                         />
-                        <ButtonUnstyled onClick={submitSearch} variant="contained" id="search-button">Search</ButtonUnstyled>
+                        <Button variant="contained" type="submit" id="search-button">Search</Button>
                     </div>
+
+                </form>
                     <CircularProgress color="success" style={{display: `${loading ? '' : 'none'}`, marginTop: '2rem'}}/>
                 </div>
                 }

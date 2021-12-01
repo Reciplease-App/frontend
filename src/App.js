@@ -1,11 +1,11 @@
-import { Route, Switch } from 'react-router-dom'
-import React from 'react'
-import './styles/app.scss'
-import { Suspense } from 'react'
-import LoadingScreen from './components/LoadingScreen'
-import Landing from './components/Landing'
-const Login = React.lazy(() => import('./components/LogIn'))
-const SignUp = React.lazy(() => import('./components/SignUp'))
+import { Route, Switch } from 'react-router-dom';
+import React from 'react';
+import './styles/app.scss';
+import { Suspense } from 'react';
+import LoadingScreen from './components/LoadingScreen';
+import Landing from './components/Landing';
+const Login = React.lazy(() => import('./components/LogIn'));
+const SignUp = React.lazy(() => import('./components/SignUp'));
 const SearchPage = React.lazy(() => import('./components/Search'))
 
 function App() {
@@ -24,9 +24,9 @@ function App() {
       <Route exact path='/'>
         <Landing/>
       </Route>
-      <Route path='/search'>
-        <Suspense fallback={<LoadingScreen/>}>
-          <SearchPage/>
+      <Route>
+        <Suspense fallback={<LoadingScreen />}>
+          <SearchPage />
         </Suspense>
       </Route>
     </Switch>
