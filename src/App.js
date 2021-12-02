@@ -5,12 +5,9 @@ import { Suspense } from 'react';
 import AuthRoute from './components/AuthRoute';
 import LoadingScreen from './components/LoadingScreen';
 import Landing from './components/Landing';
-import SearchPage from './components/Search'
 const Login = React.lazy(() => import('./components/LogIn'));
 const SignUp = React.lazy(() => import('./components/SignUp'));
-// const SearchPage = React.lazy(() => import('./components/Search'))
-
-
+const SearchPage = React.lazy(() => import('./components/Search'))
 
 function App() {
   return (
@@ -25,20 +22,6 @@ function App() {
           <SignUp/>
         </Suspense>
       </Route>
-      {/* <Route 
-        path="/search"
-        render={() => {
-          if (!window.localStorage.getItem('token')) {
-            return <Redirect to="/login" />
-          } else {
-            return (
-              <Suspense fallback={<LoadingScreen />}>
-                <SearchPage />
-              </Suspense>
-            )
-          }
-        }}> */}
-      {/* </Route> */}
       <AuthRoute path="/search" component={SearchPage} />
       <Route exact path='/'>
         <Landing/>

@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Route, Redirect} from 'react-router-dom';
+
+import LoadingScreen from './LoadingScreen';
 
 const AuthRoute = ({component: Component, ...rest}) => {
     return (
@@ -8,10 +10,15 @@ const AuthRoute = ({component: Component, ...rest}) => {
         render={() => {
           if (!window.localStorage.getItem('token')) {
             return (
-              <Redirect to="/login" />)
+              <Suspense fallback={<LoadingScreen />}>
+                <Redirect to="/login" />
+              </Suspense>
+            )
           } else {
             return (
-                <Component />
+                <Suspense fallback={<LoadingScreen />}>
+                  <Component />
+                </Suspense>
             )
           }
         }}
@@ -19,4 +26,4 @@ const AuthRoute = ({component: Component, ...rest}) => {
     )
   }
 
-  export default AuthRoute
+export default AuthRoute
